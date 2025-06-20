@@ -5,6 +5,7 @@
 2. **Check if a number is prime**
 3. **Generate the Fibonacci series up to N terms**
 4. **Check if a string or number is a palindrome**
+
 5. **Find the factorial of a number (loop or recursion)**
 6. **Check if a number is an Armstrong number**
 7. **Swap two numbers without using a third variable**
