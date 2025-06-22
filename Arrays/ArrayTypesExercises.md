@@ -1,5 +1,5 @@
 ##  1D Array Questions
-1. Create a 1D array of 5 integers and print all elements.
+1. Create a 1D array of 5 integers and print all elements.(https://github.com/Raghavendra-Devale/JavaInterview/blob/main/Arrays/OneDArrayExample.java)
 2. Read 10 numbers into an array and print only the even numbers.
 3. Store names of 5 students in a 1D array and display them.
 4. Find the maximum and minimum value in a 1D array.
