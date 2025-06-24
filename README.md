@@ -20,8 +20,7 @@ I'm diving back into Java fundamentals, sharpening problem-solving skills, and e
 **Data Structures & Algorithms**
   Hand-picked problems with detailed solutions and explanations — from arrays and trees to graphs and dynamic programming.
 	
-**System Design Fundamentals**
-  Scalable design principles, patterns, and high-level architecture notes tailored for Java-based systems.
+
 
 **Interview Notes & Tips**
   Practical advice, strategies, and personal insights gathered from mock interviews and study sessions.
