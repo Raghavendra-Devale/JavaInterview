@@ -94,9 +94,7 @@
 
 
 
-Absolutely! Here's a **complete answer set** for all the questions you listed, organized by category for easy copy-paste and review:
 
----
 
 ## 🌐 **General Java Collections**
 
@@ -430,5 +428,3 @@ LinkedHashMap<K, V> cache = new LinkedHashMap<>(16, 0.75f, true) {
    * Replaced by `ConcurrentHashMap` and `HashMap`
 
 ---
-
-Let me know if you'd like this as a PDF, markdown file, or printable cheat sheet!
