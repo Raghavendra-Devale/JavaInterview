@@ -94,222 +94,341 @@
 
 
 
-##  **General Java Collections**
-
-### 1. **What is the Java Collections Framework?**
-
-It's a **set of classes and interfaces** that provide data structures like lists, sets, queues, and maps, along with algorithms to manipulate them. It's part of `java.util`.
+Absolutely! Here's a **complete answer set** for all the questions you listed, organized by category for easy copy-paste and review:
 
 ---
 
-### 2. **Difference between `Collection` and `Collections`?**
+## 🌐 **General Java Collections**
 
-* `Collection`: Root interface for data structures like `List`, `Set`, and `Queue`.
-* `Collections`: Utility class with static methods like `sort()`, `reverse()`, `shuffle()`, etc.
+1. **What is the Java Collections Framework?**
+   A set of classes and interfaces that implement commonly reusable data structures like `List`, `Set`, `Queue`, `Map`, and algorithms to manipulate them, found in `java.util`.
 
----
+2. **What are the main benefits of using collections?**
 
-### 3. **Why use generics with collections?**
+   * Code reusability
+   * Type safety with generics
+   * Efficient data manipulation
+   * Interoperability and flexibility
+   * Rich APIs for sorting, searching, and iteration
 
-Generics provide **type safety** at compile-time and eliminate the need for casting.
+3. **What is the difference between `Collection` and `Collections`?**
 
-```java
-List<String> list = new ArrayList<>(); // safer than using raw types
-```
+   * `Collection`: Root interface for `List`, `Set`, `Queue`.
+   * `Collections`: Utility class with static methods like `sort()`, `reverse()`, `shuffle()`.
 
----
+4. **Why are generics used with collections?**
+   They provide **type safety** at compile-time, eliminate explicit casting, and improve code readability.
 
-##  **List Interface**
+5. **What is the root interface of the collections hierarchy?**
 
-### 1. **`ArrayList` vs `LinkedList`**
-
-| Feature      | ArrayList          | LinkedList         |
-| ------------ | ------------------ | ------------------ |
-| Data Storage | Dynamic array      | Doubly linked list |
-| Access Time  | O(1) (index-based) | O(n)               |
-| Insertion    | Slower in middle   | Faster             |
-| Memory       | Less overhead      | More overhead      |
+   * `Collection` (for List, Set, Queue)
+   * `Map` is a separate hierarchy
 
 ---
 
-### 2. **What is `ListIterator`?**
+## 📋 **List Interface**
 
-It's a bidirectional iterator that allows modification of elements and traversal in both directions, unlike `Iterator` which is forward-only.
+1. **Difference between `ArrayList` and `LinkedList`**
 
----
+| Feature       | ArrayList          | LinkedList         |
+| ------------- | ------------------ | ------------------ |
+| Storage       | Dynamic Array      | Doubly Linked List |
+| Access        | O(1) Random Access | O(n)               |
+| Insert/Delete | Slower in middle   | Faster in middle   |
+| Memory        | Less overhead      | More overhead      |
 
-### 3. **Can you add elements while iterating?**
+2. **When would you use `Vector` instead of `ArrayList`?**
+   When thread-safety is essential and synchronization is required. (Rare today)
 
-Yes, using `ListIterator.add()`, but not with a regular `Iterator` unless you want a `ConcurrentModificationException`.
+3. **How does `ListIterator` differ from `Iterator`?**
+   `ListIterator` can:
 
----
+   * Traverse in both directions
+   * Add/remove elements
+   * Get index during traversal
 
-##  **Set Interface**
+4. **Can you add or remove elements while iterating a List?**
+   Yes, using `ListIterator.add()` and `ListIterator.remove()`.
+   Regular `Iterator` allows only `remove()`; otherwise, a `ConcurrentModificationException` occurs.
 
-### 1. **Difference between `HashSet`, `LinkedHashSet`, and `TreeSet`**
+5. **Initial capacity of `ArrayList` and how it grows**
 
-| Set Type        | Order Maintained | Performance | Sorting |
-| --------------- | ---------------- | ----------- | ------- |
-| `HashSet`       | No               | Fast        | No      |
-| `LinkedHashSet` | Insertion order  | Moderate    | No      |
-| `TreeSet`       | Sorted           | Slower      | Yes     |
-
----
-
-### 2. **How does `HashSet` prevent duplicates?**
-
-It uses the **`hashCode()`** and **`equals()`** methods of objects to ensure uniqueness.
-
----
-
-### 3. **Can a Set contain null?**
-
-* `HashSet`: Yes (only one null)
-* `TreeSet`: No (throws `NullPointerException` if comparator doesn't allow it)
+   * Default: 10
+   * Grows by 1.5x (e.g., 10 → 15 → 22...)
 
 ---
 
-##  **Queue & Deque**
+## 🔗 **Set Interface**
 
-### 1. **How does `PriorityQueue` order elements?**
+1. **Difference between `HashSet`, `LinkedHashSet`, and `TreeSet`**
 
-By **natural ordering** (Comparable) or **custom Comparator** provided during construction.
+| Set Type        | Order Maintained | Performance | Sorted |
+| --------------- | ---------------- | ----------- | ------ |
+| `HashSet`       | No               | Fast        | No     |
+| `LinkedHashSet` | Insertion Order  | Moderate    | No     |
+| `TreeSet`       | Sorted Order     | Slower      | Yes    |
+
+2. **How does `HashSet` prevent duplicates?**
+   Uses `hashCode()` and `equals()` to determine uniqueness of elements.
+
+3. **How does `TreeSet` maintain ordering?**
+   Uses **Red-Black Tree** internally. Elements are sorted using natural ordering or a provided `Comparator`.
+
+4. **Why does `HashSet` require `hashCode()` and `equals()` to be overridden?**
+   To ensure proper bucket placement and comparison when checking for duplicates.
+
+5. **Can a Set contain null values?**
+
+   * `HashSet`: Yes (only one)
+   * `LinkedHashSet`: Yes
+   * `TreeSet`: No (throws `NullPointerException`)
 
 ---
 
-### 2. **Stack via `Deque` example:**
+## 📥 **Queue & Deque**
+
+1. **Difference between `Queue` and `Deque`**
+
+| Feature     | `Queue`        | `Deque` (Double-ended Queue) |
+| ----------- | -------------- | ---------------------------- |
+| Access Ends | One end (FIFO) | Both ends                    |
+| Use Cases   | Print queue    | Stack or Queue               |
+
+2. **How does `PriorityQueue` determine order?**
+   Uses **natural ordering** (via `Comparable`) or a **custom `Comparator`**.
+
+3. **Can you implement a Stack using Deque?**
 
 ```java
 Deque<Integer> stack = new ArrayDeque<>();
-stack.push(1); stack.push(2); // LIFO
-stack.pop(); // returns 2
+stack.push(1); // add
+stack.pop();   // remove (LIFO)
 ```
 
----
+4. **Difference between `offer()`, `add()`, `poll()`, `remove()`, `peek()`**
 
-### 3. **Methods like `offer()`, `poll()`, `peek()`**
+| Method   | Behavior                                   |
+| -------- | ------------------------------------------ |
+| `offer`  | Inserts element, returns false on failure  |
+| `add`    | Same as offer, throws exception on failure |
+| `poll`   | Retrieves and removes head or returns null |
+| `remove` | Removes and throws exception if empty      |
+| `peek`   | Views head element without removal         |
 
-| Method    | Behavior                      |
-| --------- | ----------------------------- |
-| `offer()` | Add element (returns boolean) |
-| `poll()`  | Remove and return head        |
-| `peek()`  | Return head without removal   |
+5. **Thread-safe alternatives for queues**
 
----
-
-##  **Map Interface**
-
-### 1. **`HashMap` vs `TreeMap` vs `LinkedHashMap`**
-
-| Map Type        | Order           | Sorted | Performance |
-| --------------- | --------------- | ------ | ----------- |
-| `HashMap`       | Unordered       | No     | Fast        |
-| `LinkedHashMap` | Insertion order | No     | Moderate    |
-| `TreeMap`       | Sorted by keys  | Yes    | Slower      |
+   * `ConcurrentLinkedQueue`
+   * `LinkedBlockingQueue`
+   * `ArrayBlockingQueue`
+   * `PriorityBlockingQueue`
+   * `DelayQueue`
 
 ---
 
-### 2. **How does `HashMap` work?**
+## 🗺️ **Map Interface**
 
-It uses a **hashing mechanism** to store key-value pairs in **buckets**. If keys have the same hash, it uses a **linked list** or **red-black tree** (from Java 8 onwards) to resolve collisions.
+1. **Difference between `HashMap`, `TreeMap`, `LinkedHashMap`, `Hashtable`**
+
+| Map Type        | Order Maintained | Sorted | Thread-Safe |
+| --------------- | ---------------- | ------ | ----------- |
+| `HashMap`       | No               | No     | No          |
+| `LinkedHashMap` | Insertion Order  | No     | No          |
+| `TreeMap`       | Sorted by Key    | Yes    | No          |
+| `Hashtable`     | No               | No     | Yes         |
+
+2. **How does `HashMap` work internally?**
+
+   * Uses **buckets** based on `hashCode()`
+   * Collision resolution via linked list or tree (Java 8+)
+   * Keys compared using `equals()`
+
+3. **Time complexities for get/put in `HashMap`**
+
+   * Average: **O(1)**
+   * Worst-case: **O(n)** (or O(log n) if tree used)
+
+4. **What happens if two keys have the same hash code?**
+
+   * Stored in the same bucket
+   * `equals()` is used to differentiate
+
+5. **How does `ConcurrentHashMap` achieve thread safety?**
+
+   * Bucket-level concurrency
+   * Lock-free reads (Java 8)
+   * Fine-grained synchronization for updates
+
+6. **Can a Map have null keys or values?**
+
+   * `HashMap`: One null key, multiple null values
+   * `TreeMap`: No null key if comparator is used
+   * `Hashtable`: No null keys or values
 
 ---
 
-### 3. **Can a Map have null keys or values?**
+## 🔁 **Iteration**
 
-* `HashMap`: One null key, multiple null values
-* `TreeMap`: No null key if comparator is used
-* `Hashtable`: No null key or value
-
----
-
-##  **Iteration**
-
-### 1. **Fail-fast vs Fail-safe**
-
-* **Fail-fast**: Throws `ConcurrentModificationException` if modified during iteration (`ArrayList`, `HashMap`)
-* **Fail-safe**: Allows modification without error (`ConcurrentHashMap`, `CopyOnWriteArrayList`)
-
----
-
-### 2. **Different ways to iterate**
+1. **Different ways to iterate over a collection**
 
 ```java
-// For-each loop
+// For-each
 for (String s : list) {}
 
 // Iterator
 Iterator<String> it = list.iterator();
-while(it.hasNext()) {
-  it.next();
+while (it.hasNext()) {
+    it.next();
 }
 
 // Stream API
 list.stream().forEach(System.out::println);
 ```
 
+2. **Difference between `Iterator` and `Enumeration`**
+
+| Feature         | Iterator     | Enumeration       |
+| --------------- | ------------ | ----------------- |
+| Supports remove | Yes          | No                |
+| Direction       | Forward only | Forward only      |
+| Use             | Modern       | Legacy (`Vector`) |
+
+3. **Fail-fast behavior**
+   Throws `ConcurrentModificationException` if structure modified during iteration.
+
+4. **How does `ConcurrentModificationException` occur?**
+
+   * Modifying collection directly while iterating using for-each or `Iterator`
+   * Use `Iterator.remove()` or `CopyOnWriteArrayList` to avoid
+
 ---
 
-##  **Sorting and Searching**
+## 🔍 **Sorting and Searching**
 
-### 1. **Comparable vs Comparator**
+1. **Comparable vs Comparator**
 
-* `Comparable`: Natural order, implemented in the class (`compareTo()`)
-* `Comparator`: Custom order, defined externally (`compare()`)
+| Feature    | `Comparable`     | `Comparator`    |
+| ---------- | ---------------- | --------------- |
+| Defined in | Class itself     | Separate class  |
+| Method     | `compareTo()`    | `compare()`     |
+| Use case   | Natural ordering | Custom ordering |
+
+2. **Sort a list of custom objects**
 
 ```java
-class Student implements Comparable<Student> {
-    public int compareTo(Student s) {
-        return this.age - s.age;
+Collections.sort(list); // if implements Comparable
+Collections.sort(list, new CustomComparator()); // Comparator
+```
+
+3. **How does `Collections.sort()` work?**
+   Uses **TimSort**, a hybrid of merge sort and insertion sort.
+
+4. **What is binary search and how to use it?**
+
+```java
+int index = Collections.binarySearch(sortedList, target);
+```
+
+Efficient O(log n) search; list must be sorted.
+
+---
+
+## 🔐 **Synchronization & Thread-Safety**
+
+1. **Are Java collections thread-safe by default?**
+   No. Most (`ArrayList`, `HashMap`) are **not** thread-safe.
+
+2. **How to make a collection thread-safe?**
+
+   * `Collections.synchronizedList()`
+   * `CopyOnWriteArrayList`
+   * `ConcurrentHashMap`
+
+3. **Difference between `synchronizedList()` and `CopyOnWriteArrayList`**
+
+| Feature       | `synchronizedList`          | `CopyOnWriteArrayList`    |
+| ------------- | --------------------------- | ------------------------- |
+| Thread-safety | External synchronized block | Internally synchronized   |
+| Performance   | Moderate                    | Better for frequent reads |
+| Use case      | Read/write equal            | Read-heavy                |
+
+4. **When to use `ConcurrentHashMap` over `HashMap`?**
+   In multi-threaded environments where concurrent access is needed. Avoids issues like data corruption and infinite loops.
+
+---
+
+## 🧠 **Advanced & Trick Questions**
+
+1. **Remove duplicates from a List**
+
+```java
+List<String> uniqueList = new ArrayList<>(new HashSet<>(originalList));
+```
+
+Or (Java 10+):
+
+```java
+List<String> unique = new ArrayList<>(Set.copyOf(originalList));
+```
+
+2. **Detect and break circular reference using Set**
+
+```java
+Set<Node> visited = new HashSet<>();
+boolean hasCycle(Node node) {
+    if (!visited.add(node)) return true;
+    for (Node neighbor : node.neighbors) {
+        if (hasCycle(neighbor)) return true;
     }
+    return false;
 }
 ```
 
----
-
-### 2. **How does `Collections.sort()` work?**
-
-Internally uses a variant of **TimSort**, a hybrid of merge sort and insertion sort (efficient for real-world data).
-
----
-
-##  **Synchronization & Thread-Safety**
-
-### 1. **Thread-safe alternatives**
-
-* `Collections.synchronizedList(new ArrayList<>())`
-* `CopyOnWriteArrayList`
-* `ConcurrentHashMap`
-
----
-
-### 2. **Why prefer `ConcurrentHashMap` over `Hashtable`?**
-
-Better concurrency by dividing the map into **segments**, allowing concurrent updates without locking the entire map.
-
----
-
-### 3. **Difference between `Hashtable` and `HashMap`**
-
-| Feature     | `HashMap` | `Hashtable` |
-| ----------- | --------- | ----------- |
-| Thread-safe | No        | Yes         |
-| Null keys   | Allowed   | Not allowed |
-| Performance | Faster    | Slower      |
-
----
-
-##  **Advanced Topics**
-
-### 1. **Remove duplicates from a list**
+3. **Which collection to use for an LRU cache?**
+   `LinkedHashMap` with access order and `removeEldestEntry()` overridden.
 
 ```java
-List<String> list = new ArrayList<>(Set.copyOf(originalList));
+LinkedHashMap<K, V> cache = new LinkedHashMap<>(16, 0.75f, true) {
+   protected boolean removeEldestEntry(Map.Entry<K,V> eldest) {
+       return size() > MAX_SIZE;
+   }
+};
 ```
 
-### 2. **Which collection to use for LRU Cache?**
+4. **What are weak references and how does `WeakHashMap` use them?**
 
-* `LinkedHashMap` with access-order set to `true`, and overriding `removeEldestEntry()`.
+   * Keys are stored as `WeakReference`
+   * GC removes entry when key is no longer in ordinary use
+
+5. **Difference between fail-fast and fail-safe iterators**
+
+| Iterator Type | Behavior                                 | Examples                                    |
+| ------------- | ---------------------------------------- | ------------------------------------------- |
+| Fail-fast     | Throws `ConcurrentModificationException` | `ArrayList`, `HashMap`                      |
+| Fail-safe     | Works on clone or snapshot               | `CopyOnWriteArrayList`, `ConcurrentHashMap` |
 
 ---
 
+## 🏛️ **Legacy Collections**
+
+1. **What are legacy classes?**
+   Classes from pre-Java 1.2 (before Collections API):
+
+   * `Vector`, `Hashtable`, `Stack`, `Enumeration`
+
+2. **Difference between `Vector` and `ArrayList`**
+
+| Feature         | `ArrayList` | `Vector`                |
+| --------------- | ----------- | ----------------------- |
+| Thread-safe     | No          | Yes                     |
+| Performance     | Faster      | Slower                  |
+| Synchronization | Manual      | Built-in (synchronized) |
+
+3. **Why is `Hashtable` considered obsolete?**
+
+   * Fully synchronized = poor performance
+   * No null keys or values
+   * Replaced by `ConcurrentHashMap` and `HashMap`
+
+---
+
+Let me know if you'd like this as a PDF, markdown file, or printable cheat sheet!
